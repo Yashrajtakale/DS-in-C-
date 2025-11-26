@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a node
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+// Function to create a linked list
+struct Node* createList(int n)
+{
+    struct Node *head = NULL, *temp = NULL, *newNode = NULL;
+    int data;
+
+    for(int i = 1; i <= n; i++)
+    {
+        newNode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter data for node %d: ", i);
+        scanf("%d", &data);
+
+        newNode->data = data;
+        newNode->next = NULL;
+
+        if(head == NULL)
+        {
+            head = newNode;
+            temp = head;
+        }
+        else
+        {
+            temp->next = newNode;
+            temp = temp->next;
+        }
+    }
+
+    return head;
+}
+
+// Function to count nodes
+int countNodes(struct Node *head)
+{
+    int count = 0;
+    struct Node *temp = head;
+
+    while(temp != NULL)
+    {
+        count++;
+        temp = temp->next;
+    }
+
+    return count;
+}
+
+// Function to display the list
+void displayList(struct Node *head)
+{
+    struct Node *temp = head;
+
+    if(head == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
+
+    printf("Linked List: ");
+    while(temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Main function
+int main()
+{
+    struct Node *head = NULL;
+    int n, total;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    if(n <= 0)
+    {
+        printf("Invalid number of nodes!\n");
+        return 0;
+    }
+
+    head = createList(n);
+
+    displayList(head);
+
+    total = countNodes(head);
+
+    printf("\nTotal number of items (nodes) in the list: %d\n", total);
+
+    return 0;
+}
